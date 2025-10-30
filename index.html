@@ -81,12 +81,46 @@
             display: flex;
             align-items: center;
             padding: 0 50px;
-            background: linear-gradient(to bottom, rgba(20,20,20,0) 0%, #141414 100%),
-                        linear-gradient(to right, rgba(20,20,20,0.8) 0%, rgba(20,20,20,0.3) 50%, rgba(20,20,20,0.8) 100%),
-                        url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600"><rect fill="%23202020" width="1200" height="600"/><circle cx="200" cy="100" r="80" fill="%23303030" opacity="0.5"/><circle cx="900" cy="400" r="100" fill="%23303030" opacity="0.3"/><circle cx="1100" cy="150" r="60" fill="%23303030" opacity="0.4"/></svg>');
+            /* default background: use local project image 'purpek.jpeg' if present, otherwise fallback to SVG poster */
+            background-image: url('waimwaim.jpg'), url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600"><rect fill="%23202020" width="1200" height="600"/><circle cx="200" cy="100" r="80" fill="%23303030" opacity="0.5"/><circle cx="900" cy="400" r="100" fill="%23303030" opacity="0.3"/><circle cx="1100" cy="150" r="60" fill="%23303030" opacity="0.4"/></svg>');
             background-size: cover;
-            background-position: center;
+            /* center the image but bias slightly up so poster subjects aren't cropped at the bottom */
+            background-position: center 35%;
+            background-repeat: no-repeat;
+            /* ensure any tiny gaps blend with page background */
+            background-color: #141414;
         }
+
+        /* Netflix-like fades: vertical (top->bottom) and horizontal (sides) overlays */
+        .hero::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            /* stronger top-to-bottom fade that ends in the page background color to fully hide the image edge */
+            background: linear-gradient(to bottom,
+                        rgba(20,20,20,0) 0%,
+                        rgba(20,20,20,0.14) 26%,
+                        rgba(20,20,20,0.45) 52%,
+                        rgba(20,20,20,0.78) 78%,
+                        #141414 100%);
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        .hero::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            /* left and right subtle dark edges */
+            background: linear-gradient(90deg, rgba(20,20,20,0.9) 0%, rgba(20,20,20,0) 18%, rgba(20,20,20,0) 82%, rgba(20,20,20,0.9) 100%);
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        /* ensure content sits above the overlays */
+        .hero-content { z-index: 2; }
+
+        /* upload controls removed (keputusan desain) */
 
         .hero-content {
             max-width: 600px;
@@ -172,7 +206,9 @@
 
         /* UTS Tasks Section */
         .uts-section {
-            padding: 50px;
+            /* tambah jarak atas agar jelas terpisah dari hero */
+            padding: 100px 50px 50px; /* top right/left bottom */
+            margin-top: 40px;
             position: relative;
             z-index: 3;
         }
@@ -518,6 +554,7 @@
                     ⓘ Info Lebih Lanjut
                 </button>
             </div>
+            <!-- upload controls removed per request -->
         </div>
         <div class="rating">Andreas Saputra Tambun - 18224110</div>
     </section>
@@ -729,6 +766,8 @@
                 closeModal();
             }
         });
+
+        // poster upload script removed (not needed)
     </script>
 </body>
 </html>
