@@ -351,12 +351,44 @@
         .modal-header {
             position: relative;
             height: 300px;
-            background: linear-gradient(to bottom, rgba(24,24,24,0) 0%, #181818 100%),
-                        linear-gradient(135deg, #e50914 0%, #831010 100%);
             border-radius: 8px 8px 0 0;
             display: flex;
             align-items: flex-end;
             padding: 40px;
+            overflow: hidden; /* keep header-image contained */
+        }
+
+        /* header image sits underneath content and overlay */
+        .header-image {
+            position: absolute;
+            inset: 0;
+            z-index: 0;
+        }
+
+        .header-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        /* overlay gradient to fade image into the modal background and sides */
+        .header-overlay {
+            position: absolute;
+            inset: 0;
+            z-index: 1;
+            /* combine vertical fade to bottom and subtle side fades */
+            background: linear-gradient(to bottom, rgba(24,24,24,0) 0%, #181818 100%),
+                        linear-gradient(90deg, rgba(20,20,20,0.9) 0%, rgba(20,20,20,0) 18%, rgba(20,20,20,0) 82%, rgba(20,20,20,0.9) 100%);
+            pointer-events: none;
+        }
+
+        /* ensure header controls/content are above the image and overlay */
+        .modal-header .modal-title,
+        .modal-header .modal-close,
+        .modal-header .modal-fullscreen {
+            position: relative;
+            z-index: 4;
         }
 
         .modal-title {
@@ -365,9 +397,6 @@
         }
 
         .modal-close {
-            position: absolute;
-            top: 20px;
-            right: 20px;
             background: #181818;
             border: none;
             color: #fff;
@@ -387,9 +416,6 @@
         }
 
         .modal-fullscreen {
-            position: absolute;
-            top: 20px;
-            right: 70px;
             background: #181818;
             border: none;
             color: #fff;
@@ -406,6 +432,16 @@
 
         .modal-fullscreen:hover {
             background: rgba(255,255,255,0.06);
+        }
+
+        /* container for modal action buttons (close + fullscreen) */
+        .modal-controls {
+            position: absolute;
+            top: 12px; /* slight offset from corner for aesthetics */
+            right: 20px;
+            display: flex;
+            gap: 12px;
+            z-index: 10; /* above overlays */
         }
 
         .modal-body {
@@ -430,6 +466,67 @@
             border-radius: 0;
             align-items: flex-end;
             padding: 30px;
+        }
+
+        /* fullscreen: place image to the left and let overlay fade to the right so content area matches modal body */
+        .modal-content.fullscreen .header-image {
+            /* anchor image to left and give it a fixed portion of the header */
+            left: 0;
+            right: auto;
+            top: 0;
+            bottom: 0;
+            width: 45%;
+            height: 100%;
+        }
+
+        .modal-content.fullscreen .header-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        /* smooth horizontal fade so right edge blends into dark background */
+        .modal-content.fullscreen .header-overlay {
+            background: linear-gradient(90deg,
+                        rgba(24,24,24,0) 0%,
+                        rgba(24,24,24,0) 44%,
+                        rgba(24,24,24,0.65) 62%,
+                        rgba(24,24,24,0.95) 78%,
+                        #181818 100%),
+                        linear-gradient(to bottom, rgba(24,24,24,0) 0%, #181818 100%);
+        }
+
+        /* center title vertically when fullscreen and push it to the right of the image */
+        .modal-content.fullscreen .modal-header {
+            align-items: center;
+        }
+
+        .modal-content.fullscreen .modal-title {
+            margin-left: calc(45% + 24px);
+            max-width: calc(55% - 48px);
+            line-height: 1.05;
+        }
+
+        /* ensure action buttons sit in the top-right corner of the header when fullscreen */
+        .modal-content.fullscreen .modal-controls {
+            top: 12px; /* keep same offset when fullscreen */
+            right: 20px;
+            z-index: 12;
+        }
+
+        /* add a soft gradient overlay on the right edge of the header-image to blend into the modal background
+           this avoids a hard seam where the image ends and the dark background begins */
+        .modal-content.fullscreen .header-image::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            right: 0;
+            height: 100%;
+            width: 18%;
+            pointer-events: none;
+            z-index: 2; /* above image but below title/buttons (which are z-index:4) */
+            background: linear-gradient(90deg, rgba(24,24,24,0) 0%, rgba(24,24,24,0.25) 30%, rgba(24,24,24,0.6) 60%, #181818 100%);
         }
 
         .modal-content.fullscreen .modal-body {
@@ -713,9 +810,13 @@
     <div class="modal" id="taskModal">
         <div class="modal-content">
             <div class="modal-header">
-                <h2 class="modal-title" id="modalTitle">UTS-1</h2>
-                <button class="modal-fullscreen" id="modalFullscreenBtn" aria-label="Toggle Fullscreen" onclick="toggleFullscreen()">⤢</button>
-                <button class="modal-close" onclick="closeModal()">×</button>
+                    <div class="header-image"><img id="modalHeaderImage" src="" alt="Poster"></div>
+                    <div class="header-overlay"></div>
+                    <h2 class="modal-title" id="modalTitle">UTS-1</h2>
+                    <div class="modal-controls">
+                        <button class="modal-fullscreen" id="modalFullscreenBtn" aria-label="Toggle Fullscreen" onclick="toggleFullscreen()">⤢</button>
+                        <button class="modal-close" onclick="closeModal()">×</button>
+                    </div>
             </div>
             <div class="modal-body">
                 <div class="modal-task-content" id="modalContent">
@@ -757,7 +858,8 @@
                 content: "Masukkan isi tugas UTS-1 Anda di sini.\n\nAnda bisa menambahkan beberapa paragraf untuk menjelaskan tugas dengan detail.\n\nGunakan format ini untuk mengedit konten setiap tugas.",
                 date: "5 Oktober 2025",
                 category: "Fundamental",
-                status: "Selesai"
+                status: "Selesai",
+                image: "purpek.jpeg"
             },
             2: {
                 title: "UTS-2: Algoritma dan Struktur Data",
@@ -807,6 +909,17 @@
             // set task-specific status (UAS will show '???')
             const statusEl = document.getElementById('modalStatus');
             if (statusEl) statusEl.textContent = task.status || '';
+            // set header image (stays at top). use provided image filename relative to project root
+            const headerImg = document.getElementById('modalHeaderImage');
+            if (headerImg) {
+                if (task.image) {
+                    headerImg.src = task.image;
+                    headerImg.alt = task.title + ' poster';
+                } else {
+                    headerImg.src = '';
+                    headerImg.alt = '';
+                }
+            }
             // ensure modal opens in normal (non-fullscreen) state by default
             const modalContent = document.querySelector('.modal-content');
             if (modalContent.classList.contains('fullscreen')) {
