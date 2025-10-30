@@ -351,11 +351,13 @@
         .modal-header {
             position: relative;
             height: 300px;
+            min-height: 300px;
             border-radius: 8px 8px 0 0;
             display: flex;
             align-items: flex-end;
             padding: 40px;
             overflow: hidden; /* keep header-image contained */
+            flex: 0 0 auto; /* prevent header from shrinking when modal body grows */
         }
 
         /* header image sits underneath content and overlay */
@@ -464,8 +466,9 @@
             height: 40vh;
             min-height: 220px;
             border-radius: 0;
-            align-items: flex-end;
+            align-items: center;
             padding: 30px;
+            flex: 0 0 auto; /* keep header height fixed even if body grows */
         }
 
         /* fullscreen: place image to the left and let overlay fade to the right so content area matches modal body */
@@ -854,47 +857,52 @@
         // Task data - Edit ini untuk mengisi konten tugas Anda
         const tasks = {
             1: {
-                title: "UTS-1: Dasar Komputasi Interaktif",
-                content: "Masukkan isi tugas UTS-1 Anda di sini.\n\nAnda bisa menambahkan beberapa paragraf untuk menjelaskan tugas dengan detail.\n\nGunakan format ini untuk mengedit konten setiap tugas.",
+                title: "UTS-1: All About Me",
+                content: "Halo semuanya! Perkenalkan nama saya Andreas Saputra Tambun. Kalian bisa memanggilku Andreas, Saputra, Tambun, atau apapun yang kalian suka.\n\nKalau harus menggambarkan diri saya dalam dua kata, mungkin “santai” dan “pemikir” adalah yang paling pas. Saya bukan tipe orang yang suka ramai atau menjadi pusat perhatian. Orang yang baru kenal biasanya mengira saya pendiam, dan saya tidak bisa menyalahkan mereka. Saya memang lebih menikmati ketenangan. Dalam diam, banyak hal menarik yang bisa dipikirkan.\n\nWaktu luang bagi saya adalah kesempatan untuk beristirahat dari kebisingan dunia. Saya biasanya mengisinya dengan mendengarkan musik, menonton film, atau bermain game. Sesekali, saya juga bermain gitar, tidak untuk tampil, tapi hanya untuk menikmati bunyi yang menenangkan. Bagi saya, kebahagiaan itu sederhana, yaitu ketika saya bisa menjalani hari tanpa beban yang berlebihan.\n\nKalau suatu hari saya punya waktu dan uang tanpa batas, saya ingin berkeliling dunia. Bukan untuk pamer foto perjalanan, tapi untuk menikmati berbagai tempat dengan tenang, lebih seru lagi kalau bersama orang-orang terdekat, sambil belajar tentang banyak hal baru.\n\nDalam menjalani hidup, saya berpegang pada prinsip sederhana, yaitu jalani hidup setenangnya saja. Tidak perlu ikut campur terlalu jauh dalam urusan orang lain, tapi tetaplah peduli pada sekitar. Bersikap baik saja kepada semua orang, dan jangan terlalu khawatir tentang hal-hal di luar kendali kita. Hidup memang tidak selalu bisa ditebak, jadi lebih baik dijalani dengan kepala dingin dan hati ringan.\n\nKalau hidup saya dijadikan film, mungkin sebagian orang akan menganggapnya membosankan, tidak ada drama besar, tidak ada plot twist mengejutkan. Tapi buat saya, itu justru sempurna. Saya tidak menyesalinya. Tidak semua cerita harus penuh aksi untuk bisa bermakna.\n\nSaya seorang INTP (Introverted, Intuitive, Thinking, Perceiving), dan mungkin itu sudah menjelaskan banyak hal, yaitu saya suka berpikir, menganalisis, dan mencari makna di balik hal-hal kecil. Tapi di balik semua itu, saya hanya seseorang yang ingin hidup tenang, menikmati hari, dan menjadi versi terbaik dari diri sendiri, tanpa tergesa-gesa.\n\nTerima kasih sudah mau membaca ini sampai akhir, ya!",
                 date: "5 Oktober 2025",
                 category: "Fundamental",
                 status: "Selesai",
-                image: "purpek.jpeg"
+                image: "woyowoyo.jpg"
             },
             2: {
-                title: "UTS-2: Algoritma dan Struktur Data",
+                title: "UTS-2: My Songs For You",
                 content: "Tugas kedua membahas tentang implementasi berbagai algoritma dan struktur data dalam komputasi interaktif.\n\nTermasuk analisis efisiensi dan pengoptimalan.",
                 date: "12 Oktober 2025",
                 category: "Algorithm",
-                status: "Selesai"
+                status: "Selesai",
+                image: "untuk2.jpg"
             },
             3: {
                 title: "UTS-3: Analisis Kompleksitas",
                 content: "Tugas ketiga fokus pada analisis kompleksitas waktu dan ruang dari berbagai algoritma.\n\nMempelajari Big O notation dan teknik optimasi kode.",
                 date: "19 Oktober 2025",
                 category: "Analysis",
-                status: "Selesai"
+                status: "Selesai",
+                image: "woyowoyo.jpg"
             },
             4: {
                 title: "UTS-4: OOP & Design Patterns",
                 content: "Eksplorasi mendalam tentang pemrograman berorientasi objek dan berbagai design patterns yang umum digunakan.\n\nImplementasi praktis dalam proyek nyata.",
                 date: "26 Oktober 2025",
                 category: "Programming",
-                status: "Selesai"
+                status: "Selesai",
+                image: "woyowoyo.jpg"
             },
             5: {
                 title: "UTS-5: Web Development",
                 content: "Pengembangan aplikasi web interaktif menggunakan teknologi modern.\n\nMencakup HTML, CSS, JavaScript, dan framework terkini.",
                 date: "2 November 2025",
                 category: "Web Dev",
-                status: "Selesai"
+                status: "Selesai",
+                image: "woyowoyo.jpg"
             },
             6: {
                 title: "UTS-6: Final Project",
                 content: "Proyek akhir yang mengintegrasikan semua konsep yang telah dipelajari.\n\nDemonstrasi kemampuan dalam merancang dan mengimplementasikan sistem yang kompleks.",
                 date: "9 November 2025",
                 category: "Project",
-                status: "???"
+                status: "???",
+                image: "woyowoyo.jpg"
             }
         };
 
