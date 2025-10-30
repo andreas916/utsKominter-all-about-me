@@ -294,13 +294,14 @@
 
         .task-badge {
             position: absolute;
-            top: 10px;
+            bottom: 10px;
             right: 10px;
             background: #e50914;
             padding: 4px 12px;
             border-radius: 3px;
             font-size: 0.7rem;
             font-weight: 600;
+            z-index: 3;
         }
 
         /* Modal */
@@ -330,6 +331,10 @@
             margin: 40px auto;
             position: relative;
             animation: slideIn 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            height: auto;
+            max-height: calc(100vh - 80px);
         }
 
         @keyframes slideIn {
@@ -381,8 +386,55 @@
             background: #e50914;
         }
 
+        .modal-fullscreen {
+            position: absolute;
+            top: 20px;
+            right: 70px;
+            background: #181818;
+            border: none;
+            color: #fff;
+            font-size: 1.25rem;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.2s;
+        }
+
+        .modal-fullscreen:hover {
+            background: rgba(255,255,255,0.06);
+        }
+
         .modal-body {
             padding: 40px;
+            overflow: auto;
+            flex: 1 1 auto;
+        }
+
+        /* Fullscreen variant for modal content */
+        .modal-content.fullscreen {
+            width: 100%;
+            max-width: none;
+            height: 100vh;
+            margin: 0;
+            border-radius: 0;
+            animation: none;
+        }
+
+        .modal-content.fullscreen .modal-header {
+            height: 40vh;
+            min-height: 220px;
+            border-radius: 0;
+            align-items: flex-end;
+            padding: 30px;
+        }
+
+        .modal-content.fullscreen .modal-body {
+            padding: 30px;
+            max-height: calc(100vh - 40vh);
         }
 
         .modal-task-content {
@@ -565,7 +617,7 @@
         <div class="tasks-container">
             <div class="task-card" onclick="openModal(1)">
                 <div class="task-number">1</div>
-                <div class="task-badge">SELESAI</div>
+                <div class="task-badge">Baru Ditambahkan</div>
                 <div class="task-content">
                     <div>
                         <h3 class="task-title">All About Me</h3>
@@ -576,7 +628,7 @@
 
             <div class="task-card" onclick="openModal(2)">
                 <div class="task-number">2</div>
-                <div class="task-badge">SELESAI</div>
+                <div class="task-badge">Baru Ditambahkan</div>
                 <div class="task-content">
                     <div>
                         <h3 class="task-title">My Songs For You</h3>
@@ -587,7 +639,7 @@
 
             <div class="task-card" onclick="openModal(3)">
                 <div class="task-number">3</div>
-                <div class="task-badge">SELESAI</div>
+                <div class="task-badge">Baru Ditambahkan</div>
                 <div class="task-content">
                     <div>
                         <h3 class="task-title">My Stories For You</h3>
@@ -598,7 +650,7 @@
 
             <div class="task-card" onclick="openModal(4)">
                 <div class="task-number">4</div>
-                <div class="task-badge">SELESAI</div>
+                <div class="task-badge">Baru Ditambahkan</div>
                 <div class="task-content">
                     <div>
                         <h3 class="task-title">My SHAPE</h3>
@@ -609,7 +661,7 @@
 
             <div class="task-card" onclick="openModal(5)">
                 <div class="task-number">5</div>
-                <div class="task-badge">SELESAI</div>
+                <div class="task-badge">Baru Ditambahkan</div>
                 <div class="task-content">
                     <div>
                         <h3 class="task-title">My Personal Review</h3>
@@ -662,6 +714,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h2 class="modal-title" id="modalTitle">UTS-1</h2>
+                <button class="modal-fullscreen" id="modalFullscreenBtn" aria-label="Toggle Fullscreen" onclick="toggleFullscreen()">⤢</button>
                 <button class="modal-close" onclick="closeModal()">×</button>
             </div>
             <div class="modal-body">
@@ -671,7 +724,7 @@
                 <div class="modal-meta">
                     <div class="meta-item">
                         <span class="meta-label">Status</span>
-                        <span class="meta-value">Selesai</span>
+                        <span class="meta-value" id="modalStatus">Selesai</span>
                     </div>
                     <div class="meta-item">
                         <span class="meta-label">Tanggal</span>
@@ -703,37 +756,43 @@
                 title: "UTS-1: Dasar Komputasi Interaktif",
                 content: "Masukkan isi tugas UTS-1 Anda di sini.\n\nAnda bisa menambahkan beberapa paragraf untuk menjelaskan tugas dengan detail.\n\nGunakan format ini untuk mengedit konten setiap tugas.",
                 date: "5 Oktober 2025",
-                category: "Fundamental"
+                category: "Fundamental",
+                status: "Selesai"
             },
             2: {
                 title: "UTS-2: Algoritma dan Struktur Data",
                 content: "Tugas kedua membahas tentang implementasi berbagai algoritma dan struktur data dalam komputasi interaktif.\n\nTermasuk analisis efisiensi dan pengoptimalan.",
                 date: "12 Oktober 2025",
-                category: "Algorithm"
+                category: "Algorithm",
+                status: "Selesai"
             },
             3: {
                 title: "UTS-3: Analisis Kompleksitas",
                 content: "Tugas ketiga fokus pada analisis kompleksitas waktu dan ruang dari berbagai algoritma.\n\nMempelajari Big O notation dan teknik optimasi kode.",
                 date: "19 Oktober 2025",
-                category: "Analysis"
+                category: "Analysis",
+                status: "Selesai"
             },
             4: {
                 title: "UTS-4: OOP & Design Patterns",
                 content: "Eksplorasi mendalam tentang pemrograman berorientasi objek dan berbagai design patterns yang umum digunakan.\n\nImplementasi praktis dalam proyek nyata.",
                 date: "26 Oktober 2025",
-                category: "Programming"
+                category: "Programming",
+                status: "Selesai"
             },
             5: {
                 title: "UTS-5: Web Development",
                 content: "Pengembangan aplikasi web interaktif menggunakan teknologi modern.\n\nMencakup HTML, CSS, JavaScript, dan framework terkini.",
                 date: "2 November 2025",
-                category: "Web Dev"
+                category: "Web Dev",
+                status: "Selesai"
             },
             6: {
                 title: "UTS-6: Final Project",
                 content: "Proyek akhir yang mengintegrasikan semua konsep yang telah dipelajari.\n\nDemonstrasi kemampuan dalam merancang dan mengimplementasikan sistem yang kompleks.",
                 date: "9 November 2025",
-                category: "Project"
+                category: "Project",
+                status: "???"
             }
         };
 
@@ -745,15 +804,45 @@
             document.getElementById('modalContent').textContent = task.content;
             document.getElementById('modalDate').textContent = task.date;
             document.getElementById('modalCategory').textContent = task.category;
-            
+            // set task-specific status (UAS will show '???')
+            const statusEl = document.getElementById('modalStatus');
+            if (statusEl) statusEl.textContent = task.status || '';
+            // ensure modal opens in normal (non-fullscreen) state by default
+            const modalContent = document.querySelector('.modal-content');
+            if (modalContent.classList.contains('fullscreen')) {
+                modalContent.classList.remove('fullscreen');
+                updateFullscreenButton(false);
+            }
+
             modal.classList.add('active');
             document.body.style.overflow = 'hidden';
         }
 
         function closeModal() {
             const modal = document.getElementById('taskModal');
+            // remove fullscreen state when closing
+            const modalContent = document.querySelector('.modal-content');
+            if (modalContent.classList.contains('fullscreen')) {
+                modalContent.classList.remove('fullscreen');
+                updateFullscreenButton(false);
+            }
             modal.classList.remove('active');
             document.body.style.overflow = 'auto';
+        }
+
+        function toggleFullscreen() {
+            const modalContent = document.querySelector('.modal-content');
+            const isFull = modalContent.classList.toggle('fullscreen');
+            updateFullscreenButton(isFull);
+            // keep body overflow hidden when fullscreen so underlying page doesn't scroll
+            document.body.style.overflow = isFull ? 'hidden' : 'hidden';
+        }
+
+        function updateFullscreenButton(isFull) {
+            const btn = document.getElementById('modalFullscreenBtn');
+            if (!btn) return;
+            btn.textContent = isFull ? '⤡' : '⤢';
+            btn.setAttribute('aria-pressed', isFull ? 'true' : 'false');
         }
 
         // Close modal when clicking outside
