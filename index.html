@@ -452,6 +452,37 @@
             flex: 1 1 auto;
         }
 
+        /* compact variant used when modal shows the single gateway card so it appears closer to header */
+        .modal-body.compact-modal-cards {
+            padding-top: 0; /* reduce top padding so card sits higher */
+        }
+
+        /* Modal cards inside modal-body for UTS-2 gateway */
+        .modal-cards {
+            /* single-column layout so card appears as a wide rectangle */
+            display: block;
+        }
+
+        .modal-card {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+            width: 100%;
+            min-height: 140px; /* make it rectangular: wider than tall */
+            padding: 20px 24px;
+            background: linear-gradient(180deg,#222,#151515);
+            border-radius: 10px;
+            color: #fff;
+            text-decoration: none;
+            border: 1px solid rgba(255,255,255,0.04);
+            transition: transform 0.18s ease, box-shadow 0.18s ease;
+        }
+
+        .modal-card:hover { transform: translateY(-6px); box-shadow: 0 10px 28px rgba(0,0,0,0.6); }
+
+        .modal-card h3 { font-size: 1.15rem; margin: 0; }
+        .modal-card p { color: #d0d0d0; font-size: 0.98rem; margin: 0; }
+
         /* Fullscreen variant for modal content */
         .modal-content.fullscreen {
             width: 100%;
@@ -585,6 +616,7 @@
             font-weight: 700;
             margin-bottom: 30px;
             background: linear-gradient(90deg, #e50914 0%, #ff6b6b 100%);
+            background-clip: text;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
@@ -869,7 +901,7 @@
                 date: "12 Oktober 2025",
                 category: "Algorithm",
                 status: "Selesai",
-                image: "untuk2.jpg"
+                image: "lombasihirrr.png"
             },
             3: {
                 title: "UTS-3: Analisis Kompleksitas",
@@ -910,7 +942,29 @@
             const task = tasks[taskNumber];
             
             document.getElementById('modalTitle').textContent = task.title;
-            document.getElementById('modalContent').textContent = task.content;
+            // For task 2 we render a set of cards that link to a separate page (UTS-2 gateway)
+            const modalContentEl = document.getElementById('modalContent');
+            if (taskNumber === 2) {
+                // single rectangular gateway card to the uts-2 page
+                modalContentEl.innerHTML = `
+                    <div class="modal-cards">
+                        <a class="modal-card" href="uts-2.html">
+                            <div>
+                                <h3>My Songs For You... (KLIK!!)</h3>
+                                <p>LAGU LAGU DI SINI UNTUK KAMU YANG BERARTI.</p>
+                            </div>
+                        </a>
+                    </div>
+                `;
+                // make modal-body more compact so the card sits closer to the header/title
+                const modalBody = document.querySelector('.modal-body');
+                if (modalBody) modalBody.classList.add('compact-modal-cards');
+            } else {
+                // ensure compact class removed for other tasks
+                const modalBody = document.querySelector('.modal-body');
+                if (modalBody) modalBody.classList.remove('compact-modal-cards');
+                modalContentEl.textContent = task.content;
+            }
             document.getElementById('modalDate').textContent = task.date;
             document.getElementById('modalCategory').textContent = task.category;
             // set task-specific status (UAS will show '???')
@@ -946,6 +1000,9 @@
                 modalContent.classList.remove('fullscreen');
                 updateFullscreenButton(false);
             }
+            // also remove compact class if present so next open is normal
+            const modalBody = document.querySelector('.modal-body');
+            if (modalBody) modalBody.classList.remove('compact-modal-cards');
             modal.classList.remove('active');
             document.body.style.overflow = 'auto';
         }
