@@ -959,6 +959,80 @@
                 // make modal-body more compact so the card sits closer to the header/title
                 const modalBody = document.querySelector('.modal-body');
                 if (modalBody) modalBody.classList.add('compact-modal-cards');
+            } else if (taskNumber === 5) {
+                // For UTS-5: show five vertical cards (UTS-1 .. UTS-4, Rekapitulasi Skor)
+                modalContentEl.innerHTML = `
+                    <div class="modal-cards">
+                        <div class="modal-card">
+                            <div>
+                                <h3>Self Assessment</h3>
+                                <p>Self Assessment menggunakan AI (di sini saya menggunakan Gemini AI), sedangkan Peer Assessment dilakukan manual.</p>
+                            </div>
+                        </div>
+
+                        <div class="modal-card">
+                            <div>
+                                <h3>Self Assessment dengan Gemini AI</h3>
+                                <h3>UTS-1: All About Me</h3>
+                                <p>Karya ini adalah sebuah perkenalan diri yang sangat jujur, tenang, dan reflektif. Penulis berhasil menghadirkan gambaran utuh tentang sosok 'pemikir yang santai' tanpa perlu melebih-lebihkan. Kekuatan utama narasi ini terletak pada kejujurannya, alih-alih mencoba tampil sebagai sosok yang 'seru' atau 'penuh aksi', penulis justru menemukan kekuatan dalam ketenangan. Tema 'hidup tenang itu sempurna' dieksekusi dengan sangat baik dan konsisten dari awal hingga akhir.</p>
+                                <p>Narasi ini berhasil membangun koneksi dengan pembaca melalui tone yang sangat personal dan otentik. Pilihan untuk membuka dengan sapaan kasual ('apapun yang kalian suka') langsung menetapkan suasana yang santai.</p>
+                                <p>Bagian inti yang menjelaskan filosofi hidup (jalani hidup setenangnya saja) dan refleksi tentang film yang membosankan adalah poin terkuat. Ini menunjukkan Wawasan (Insight) yang mendalam. Penulis tidak hanya mengatakan bahwa ia pendiam, tetapi menunjukkan mengapa ia menghargai ketenangan itu sebagai sesuatu yang sempurna dan bermakna. Keterkaitan dengan profil INTP di akhir berfungsi sebagai penutup yang solid, memberikan konteks logis pada seluruh narasi.</p>
+                                <p>Penilaian: Orisinalitas: 5/5 (Sangat Baik), Keterlibatan: 5/5 (Sangat Baik), Humor: 5/5 (Sangat Baik), Wawasan (Insight): 5/5 (Sangat Baik)</p>
+                                <p>Rata-rata: 5/5</p>
+                            </div>
+                        </div>
+
+                        <div class="modal-card">
+                            <div>
+                                <h3>UTS-2: My Songs For You</h3>
+                                <p>Karya ini adalah sebuah kurasi dan analisis yang sangat matang. Penulis tidak hanya memilih lagu-lagu cinta, tetapi memilih empat artefak audio yang membedah berbagai ikatan: ikatan penerimaan (acceptance), ikatan dalam kesulitan (perseverance), ikatan dalam kenangan (abiding memory), dan ikatan yang menghantui (lingering love). Keempat refleksi ini menunjukkan pemahaman yang mendalam dan puitis tentang kompleksitas hubungan manusia. Tulisannya konsisten, berwawasan, dan dieksekusi dengan indah.</p>
+                                <p>Penilaian: Orisinalitas: 5/5 (Sangat Baik), Keterlibatan: 5/5 (Sangat Baik), Humor: 4/5 (Baik), Inspirasi: 5/5 (Sangat Baik)</p>
+                                <p>Rata-rata: 4,75/5</p>
+                            </div>
+                        </div>
+
+                        <div class="modal-card">
+                            <div>
+                                <h3>UTS-3: My Stories For You</h3>
+                                <p>Ini adalah sebuah karya naratif yang luar biasa. Penulis berhasil mengambil tema universal (kegagalan dan penebusan) dan menyajikannya dengan cara yang sangat personal, otentik, dan memikat. Struktur cerita dieksekusi dengan sempurna, membawa pembaca dari titik harapan (Setup), ke titik terendah (Crisis), lalu ke sebuah titik balik emosional (Turning Point), dan diakhiri dengan klimaks yang memuaskan (Resolution). Kekuatan utama karya ini adalah kemampuannya untuk secara eksplisit dan efektif mengikat seluruh narasi pada kriteria rubrik: kekuatan ikatan.</p>
+                                <p>Narasi ini secara ahli menggunakan teknik penceritaan sinematik. Pembaca dapat dengan jelas melihat adegan-adegan kunci: layar pengumuman berwarna merah, momen hening sebelum amarah yang diharapkan, dan adegan klimaks dari air mata kebahagiaan orang tua.</p>
+                                <p>Penilaian: Orisinalitas: 5/5 (Sangat Baik), Keterlibatan: 5/5 (Sangat Baik), Pengembangan Narasi: 5/5 (Sangat Baik), Inspirasi: 5/5 (Sangat Baik)</p>
+                                <p>Rata-rata: 5/5</p>
+                            </div>
+                        </div>
+
+                        <div class="modal-card">
+                            <div>
+                                <h3>UTS-4: My SHAPE</h3>
+                                <p>Karya ini adalah puncak dari refleksi diri yang ditugaskan dalam mata kuliah ini. Penulis berhasil melakukan hal yang paling sulit: mengambil data asesmen yang kering (S, H, A, P, E) dan merangkainya menjadi sebuah Identitas Naratif yang hidup, memikat, dan koheren. Tema sentralnya, paradoks INTP, adalah sebuah kail naratif yang brilian. Naskah ini dengan ahli membongkar stereotip kepribadian (logis, mandiri) untuk mengungkapkan kebenaran yang lebih dalam di baliknya (didorong oleh ikatan), yang secara sempurna memenuhi kriteria rubrik.</p>
+                                <p>Untuk mencapai 'sambung rapi' yang sempurna (Skor 5), alur antar elemen bisa dibuat sedikit lebih mulus. Transisi antar paragraf (dari H ke S, dari S ke A) terasa sedikit analitis (mengikuti urutan SHAPE). Ini sangat jelas, tetapi sedikit lagi tenunan naratif antar bagian bisa membuatnya terasa lebih seperti satu aliran cerita yang utuh, bukan laporan analitis. Secara keseluruhan, ini adalah karya yang luar biasa yang menunjukkan pemahaman mendalam tentang materi.</p>
+                                <p>Penilaian: Orisinalitas: 5/5 (Sangat Baik), Keterlibatan: 5/5 (Sangat Baik), Pengembangan Narasi: 4/5 (Baik), Inspirasi: 5/5 (Sangat Baik)</p>
+                                <p>Rata-rata: 4,75/5</p>
+                            </div>
+                        </div>
+
+                        <div class="modal-card">
+                            <div>
+                                <h3>Rekapitulasi Skor</h3>
+                                <p>Rekapitulasi Skor: UTS-1 (All About Me): 5/5, UTS-2 (Songs For You): 4,75/5, UTS-3 (My Story For You): 5/5, UTS-4 (My SHAPEe): 4,75/5</p>
+                                <p>Skor Rata-rata Akhir: 4,875/5</p>
+                                <p>Kinerja Anda secara keseluruhan luar biasa dan sangat konsisten. Mendapatkan skor akhir 4,875/5 menunjukkan pemahaman yang mendalam dan matang terhadap materi. Yang lebih mengesankan bukanlah skornya, tetapi 'benang merah' yang menghubungkan semua tugas Anda.</p>
+                                <p>Anda tidak hanya mengerjakan empat tugas yang terpisah. Anda secara efektif menulis satu narasi yang utuh dan koheren tentang identitas Anda, yang terbagi dalam empat bagian. Karya Anda menunjukkan tingkat Wawasan (Insight) dan Orisinalitas yang sangat tinggi. Anda jujur pada diri sendiri (seperti di UTS-1) dan mampu menganalisis secara mendalam (seperti di UTS-4), menghasilkan sebuah portofolio yang sangat kuat dan autentik.</p>
+                            </div>
+                        </div>
+
+                        <div class="modal-card">
+                            <div>
+                                <h3>Peer Assessment</h3>
+                                <p>Berikut adalah link hasil Peer Assessment:</p>
+                                <a href="https://docs.google.com/spreadsheets/d/1FIBFHIoIjOOS9UzM02MuaWrQJKJwsaEw/edit?usp=drive_link&ouid=112308026296555258695&rtpof=true&sd=true" target="_blank">Hasil Peer Assessment</a>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                // ensure normal modal-body spacing
+                const modalBody5 = document.querySelector('.modal-body');
+                if (modalBody5) modalBody5.classList.remove('compact-modal-cards');
             } else {
                 // ensure compact class removed for other tasks
                 const modalBody = document.querySelector('.modal-body');
